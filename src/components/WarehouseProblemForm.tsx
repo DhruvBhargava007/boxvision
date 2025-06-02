@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import type { ChangeEvent } from 'react';
 import styled from '@emotion/styled';
 import Webcam from 'react-webcam';
+import { useParams, useNavigate } from 'react-router-dom';
 import { analyzeImage as analyzeImageAPI, initializeOpenAI } from '../services/openai';
 
 interface FormData {
@@ -201,7 +202,29 @@ const SaveButton = styled.button`
   }
 `;
 
+const BackButton = styled.button`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: white;
+    color: #4169e1;
+  }
+`;
+
 const WarehouseProblemForm: React.FC = () => {
+  const { problemType } = useParams<{ problemType: string }>();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState<FormData>({
     palletId: 'PLT3962',
     timestamp: '2025-06-02T17:52:44.149Z',
@@ -301,11 +324,16 @@ const WarehouseProblemForm: React.FC = () => {
     console.log('Form submitted:', { ...formData, image: selectedImage });
   };
 
+  const handleBack = () => {
+    navigate('/');
+  };
+
   return (
     <FormContainer>
       <Header>
+        <BackButton onClick={handleBack}>← Back</BackButton>
         <Title>Warehouse Problem Solver</Title>
-        <Subtitle>Quick Problem Resolution</Subtitle>
+        <Subtitle>{problemType?.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</Subtitle>
       </Header>
 
       <Section>

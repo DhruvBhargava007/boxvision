@@ -14,10 +14,12 @@
     "@chakra-ui/toast": "^7.0.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@types/react-router-dom": "^5.3.3",
     "framer-motion": "^12.15.0",
     "openai": "^5.0.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.1",
     "react-webcam": "^7.2.0"
   },
   "devDependencies": {
